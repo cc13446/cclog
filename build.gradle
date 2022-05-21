@@ -1,0 +1,57 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.2'
+    configFile file("src/main/java/com/cc/cclog/config/checkstyle/checkstyle.xml")
+}
+
+task checkstyle(type: Checkstyle) {
+    ignoreFailures false
+    showViolations true
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**', '**/test/**', '**/build/**'
+
+    classpath = files()
+}
+
+group = 'com.cc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.7'
+
+    // swagger
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    // Apache lang3
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

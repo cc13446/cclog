@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: Cclog
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+server:
+  port: 8080
+
+
+# swagger
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: Cclog
+  try-host: http://localhost:${server.port}
+
